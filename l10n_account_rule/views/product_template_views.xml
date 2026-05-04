@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+
+
+        <record id="cl_product_template_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.only.list.inherit.emc</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="product_brand_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="cl_product_template_only_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.only.form.inherit.emc</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="product_brand_id"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[last()]" position="after">
+                  <page string="Product Parts" name="product_parts">
+                      <field name="parts_history_line" widget="section_and_note_one2many">
+                          <list editable="bottom" string="Commission Lines">
+                              <field name="product_part_id" column_invisible="True"/>
+                              <field name="part_number"/>
+                              <field name="date_from"/>
+                              <field name="date_to"/>
+                              <field name="engine_id"/>
+                              <field name="engine_capacity"/>
+                          </list>
+                      </field>
+                  </page>
+              </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="cl_product_template_search_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.search.stock.form.sl</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='name']" position="after">
+                    <field name="product_brand_id"/>
+                </xpath>
+                <xpath expr="//search/filter[@name='services']" position="after">
+                    <filter name="product_brand_id" string="Product Brand" domain="[('product_brand_id', '!=', False)]"/>
+                </xpath>
+
+                <xpath expr="//search/group/filter[@name='group_by_type']" position="after">
+                    <filter name="product_brand_id" string="Product Brand" context="{'group_by': 'product_brand_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

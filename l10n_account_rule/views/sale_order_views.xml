@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cl_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.sl</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="partner_credit" invisible="1"/>
+                    <field name="partner_debit" invisible="1"/>
+                    <field name="partner_current_balance"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']//list//field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="sum">Total</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//list//field[@name='discount']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//list/field[@name='discount']" position="before">
+                    <field name="gst_amount" force_save="1"/>
+                    <field name="discount_amount" force_save="1"/>
+                </xpath>
+
+
+                <xpath expr="//group[@name='note_group']" position="after">
+                    <button name="get_product_sale_history" type="object" data-hotkey="shift+g" string="Sale History" class="oe_highlight" invisible="not order_line"/>
+                    <!--RELATED PARTNER PRODUCTS SALE -->
+                    <group name="overall_sale" string="CURRENT CUSTOMER SALE HISTORY" class="mt-1"></group>
+
+                    <field name="partner_sale_history" widget="section_and_note_one2many" readonly="1">
+                        <list string="Products Line" editable="bottom">
+                            <field name="currency_id" column_invisible="True"/>
+                            <field name="company_id" column_invisible="True"/>
+                            <field name="product_id" optional="hide"/>
+                            <field name="product_template_id"/>
+                            <field name="date_order"/>
+                            <field name="sale_order_id"/>
+                            <field name="name"/>
+                            <field name="product_uom_qty"/>
+                            <field name="product_uom" optional="hide"/>
+<!--                            <field name="product_uom_category_id" optional="hide"/>-->
+                            <field name="currency_id" optional="hide"/>
+                            <field name="price_unit"/>
+                            <field name="tax_id" widget="many2many_tags" optional="hide"/>
+                            <field name="discount" column_invisible="True"/>
+                            <field name="discount_amount" optional="hide"/>
+                            <field name="price_subtotal" optional="show"/>
+                            <field name="price_total" optional="show"/>
+                            <field name="conversion_rate_pkr" optional="show"/>
+                            <field name="amount_in_pkr" optional="show"/>
+                        </list>
+                    </field>
+
+
+
+                    <!--OVERALL PRODUCTS SALE -->
+                    <group name="overall_sale" string="TOTAL SALE HISTORY" class="mt-2"></group>
+                    <field name="total_sale_history" widget="section_and_note_one2many" readonly="1">
+                        <list string="Products Line" editable="bottom">
+                            <field name="currency_id" column_invisible="True"/>
+                            <field name="company_id" column_invisible="True"/>
+                            <field name="product_id" optional="hide"/>
+                            <field name="product_template_id"/>
+                            <field name="date_order"/>
+                            <field name="sale_order_id"/>
+                            <field name="partner_id"/>
+                            <field name="name"/>
+                            <field name="product_uom_qty"/>
+                            <field name="product_uom" optional="hide"/>
+<!--                            <field name="product_uom_category_id" optional="hide"/>-->
+                            <field name="currency_id" optional="hide"/>
+                            <field name="price_unit"/>
+                            <field name="tax_id" widget="many2many_tags" optional="hide"/>
+                            <field name="discount" column_invisible="True"/>
+                            <field name="discount_amount" optional="hide"/>
+                            <field name="price_subtotal" optional="show"/>
+                            <field name="price_total" optional="show"/>
+                            <field name="conversion_rate_pkr" optional="show"/>
+                            <field name="amount_in_pkr" optional="show"/>
+
+                        </list>
+                    </field>
+
+                    <!--PRODUCT PARTS HISTORY -->
+                    <group name="product_parts_history" string="PRODUCT PARTS HISTORY" class="mt-2"></group>
+                    <field name="sale_products_parts_history" widget="section_and_note_one2many" readonly="1">
+                        <list string="Parts Line" editable="bottom">
+                            <field name="product_part_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="part_number"/>
+                            <field name="engine_id"/>
+                            <field name="engine_capacity"/>
+                        </list>
+                    </field>
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+        <record id="paperform" model="report.paperformat">
+            <field name="name">Circle Custom Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+        </record>
+
+        <record id="action_quotation_report" model="ir.actions.report">
+            <field name="name">Custom Quotation Report</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.quotation_report_template</field>
+            <field name="report_file">stock_report.quotation_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+        </record>
+
+        <record id="action_report_internal_quotation" model="ir.actions.report">
+            <field name="name">Custom Internal Quotation Report</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.internal_quotation_report_template</field>
+            <field name="report_file">stock_report.internal_quotation_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+        </record>
+
+        <record id="action_report_purchase_order" model="ir.actions.report">
+            <field name="name">Custom Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.purchase_order_report_template</field>
+            <field name="report_file">stock_report.purchase_order_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+        </record>
+
+        <record id="action_report_goods_receipt_note" model="ir.actions.report">
+            <field name="name">Custom Goods Receipt Note</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.good_receipt_note_report_template</field>
+            <field name="report_file">stock_report.good_receipt_note_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+            <field name="domain" eval="[('picking_type_code', '=', 'incoming')]"/>
+        </record>
+
+        <record id="action_report_delivery_order" model="ir.actions.report">
+            <field name="name">Custom Delivery Order</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.delivery_order_report_template</field>
+            <field name="report_file">stock_report.delivery_order_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+            <field name="domain" eval="[('picking_type_code', '=', 'outgoing')]"/>
+        </record>
+
+        <record id="action_report_credit_note" model="ir.actions.report">
+            <field name="name">Custom Credit Note</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.report_credit_note_template</field>
+            <field name="report_file">stock_report.report_credit_note_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+            <field name="domain" eval="[('move_type', '=', 'out_refund')]"/>
+        </record>
+        <record id="action_report_customer_invoice" model="ir.actions.report">
+            <field name="name">Custom Customer Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.customer_invoice_report_template</field>
+            <field name="report_file">stock_report.customer_invoice_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+            <field name="domain" eval="[('move_type', '=', 'out_invoice')]"/>
+        </record>
+
+        <record id="action_report_vendor_bill" model="ir.actions.report">
+            <field name="name">Custom Vendor Bill</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_report.customer_invoice_report_template</field>
+            <field name="report_file">stock_report.customer_invoice_report_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="stock_report.paperform"/>
+            <field name="domain" eval="[('move_type', '=', 'in_invoice')]"/>
+        </record>
+
+    </data>
+</odoo>

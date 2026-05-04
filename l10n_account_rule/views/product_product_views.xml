@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+
+        <record id="cl_product_product_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.product.only.list.inherit.emc</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="product_brand_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="cl_product_product_normal_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.product.normal.form.inherit.sl</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="product_brand_id"/>
+<!--                    <field name="product_brand_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+                </xpath>
+
+                <xpath expr="//notebook/page[last()]" position="after">
+                  <page string="Product Parts" name="product_parts">
+                      <field name="parts_history_line" widget="section_and_note_one2many">
+                          <list editable="bottom" string="Commission Lines">
+                              <field name="product_part_id" column_invisible="True"/>
+                              <field name="part_number"/>
+                              <field name="date_from"/>
+                              <field name="date_to"/>
+                              <field name="engine_id"/>
+                              <field name="engine_capacity"/>
+                          </list>
+                      </field>
+                  </page>
+              </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

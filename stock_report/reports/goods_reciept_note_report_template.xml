@@ -1,0 +1,191 @@
+<odoo>
+    <template id="good_receipt_note_report_template">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.basic_layout">
+                <div class="container" style="font-family: 'Verdana';">
+                    <table style="width:100%; height: 1000px; border-collapse: collapse;" >
+                        <thead>
+                            <!-- Header (Repeats on every page) -->
+                            <tr>
+                                <th colspan="10" style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
+                                    <div class="text-center">
+                                        <h2 class="font-weight-bold" style="margin-bottom:10px;">
+                                            Circle International Trading Company
+                                        </h2>
+                                        <h4 class="mb-0">HEAVY MACHINERY PARTS</h4>
+                                        <p class="mb-0">MULTAN ROAD, CHUNG, LAHORE</p>
+                                        <p class="mb-0">
+                                            ACCOUNTS@CIRCLE.COM
+                                        </p>
+                                        <h3 class="">GOODS RECEIPT NOTE</h3>
+                                    </div>
+                                    <div style="text-align: left; font-weight: bold;">
+                                        SUPPLIER:
+                                    </div>
+                                    <div class="row  p-0 container ">
+                                        <div class="col-9 border p-1" style="text-align: left;">
+                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                                <t t-esc="o.partner_id.name"/>
+                                                <t t-esc="o.partner_id.phone"/>
+                                            </p>
+                                            <p class="mb-2 mt-2">
+                                                <t t-esc="o.partner_id.contact_address_complete"/>
+                                            </p>
+                                        </div>
+                                        <div class="col-3  p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
+                                            <p class="mb-2 mt-2">
+                                                <b>GRIN#</b>
+                                                <t t-esc="o.name"/>
+                                            </p>
+                                            <p class="mb-2">
+                                                <strong>DATE:</strong>
+                                                <t t-esc="o.scheduled_date.strftime('%d/%m/%Y')"/>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="padding:5px;font-weight:bold;">Sr#</th>
+                                <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">DESCRIPTION OF GOODS</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold;">QNTY</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold;">UNIT</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold; ">RATE</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold; ">AMOUNT</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold; ">DIS AMT</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold; ">GST AMT</th>
+                                <th class="text-center" style="padding:5px;font-weight:bold; ">NET AMT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="sr" t-value="1"/>
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-set="total_qty" t-value="0"/>
+                            <t t-set="disc_amount" t-value="0"/>
+                            <t t-set="gst_amount" t-value="0"/>
+                            <t t-set="net_amount" t-value="0"/>
+                            <t t-foreach="o.move_ids" t-as="line">
+                                <tr style="height:15px;">
+                                    <td class="text-center"
+                                       style="padding:5px;border-bottom: solid 1px transparent;">
+                                        <span t-esc="sr"/>
+                                    </td>
+                                    <td style="border-bottom: 1px solid transparent; padding:5px; width:40%;">
+                                        <div><t t-esc="line.product_id.default_code"/></div>
+                                        <div style="word-break: break-all;"><t t-esc="line.product_id.name"/></div>
+                                        <div><t t-esc="line.product_id.product_brand_id.name"/></div>
+                                    </td>
+                                    <td class="text-center mb-0"
+                                        style="padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.quantity"/>
+                                        <t t-set="total_qty" t-value="total_qty + line.quantity"/>
+                                    </td>
+                                    <td class="text-center mb-0"
+                                        style="padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.product_uom.name"/>
+                                    </td>
+                                    <td class="text-right mb-0"
+                                        style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.price_unit"/>
+                                    </td>
+                                    <td class="text-right mb-0"
+                                        style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.quantity * line.price_unit"/>
+                                    </td>
+                                    <td class="text-right mb-0"
+                                        style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-set="discount_amt" t-value="line.quantity*(line.purchase_line_id.discount_amount/line.purchase_line_id.product_uom_qty)"/>
+                                        <t t-esc="discount_amt"/>
+                                    </td>
+                                    <td class="text-right mb-0"
+                                        style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-set="gst_amt" t-value="line.quantity*(line.purchase_line_id.gst_amount/line.purchase_line_id.product_uom_qty)"/>
+                                        <t t-esc="gst_amt"/>
+                                    </td>
+                                    <td class="text-right mb-0"
+                                        style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-set="net_amt" t-value="((line.quantity * line.price_unit)-discount_amt)+gst_amt"/>
+                                        <t t-esc="net_amt"/>
+                                    </td>
+
+                                    <t t-set="total_amount"
+                                       t-value="total_amount + (line.quantity * line.price_unit)"/>
+                                    <t t-set="gst_amount"
+                                       t-value="gst_amount + gst_amt"/>
+                                    <t t-set="disc_amount"
+                                       t-value="disc_amount + discount_amt"/>
+                                    <t t-set="net_amount"
+                                       t-value="net_amount + net_amt"/>
+
+                                </tr>
+                                <t t-set="sr" t-value="sr + 1"/>
+                            </t>
+                            <tr>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                            </tr>
+                            <tr style="height:25px;">
+                                <td class="text-right border"/>
+                                <td class="border text-end"
+                                    style="width:45%;padding-right: 20px; font-weight: bold;">
+                                    Total:-
+                                </td>
+                                <td class="text-right border"/>
+                                <td class="text-right border"/>
+                                <td class="text-right border"/>
+
+                                <td class="text-right"
+                                    style="text-align: right;border: 1px solid black;">
+                                    <t t-esc="'{:,.1f}'.format(total_amount)"/>
+                                </td>
+                                <td class="text-right"
+                                    style="text-align: right;border: 1px solid black;">
+                                    <t t-esc="'{:,.1f}'.format(disc_amount)"/>
+                                </td>
+                                <td class="text-right"
+                                    style="text-align: right; border: 1px solid black;">
+                                    <t t-esc="'{:,.1f}'.format(gst_amount)"/>
+                                </td>
+                                <td class="text-right"
+                                    style="text-align: right; border: 1px solid black;">
+                                    <t t-esc="'{:,.1f}'.format(net_amount)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="page-break-inside: avoid; margin-top:20px;">
+                        <div class="mt-0">
+                            <t t-esc="o.note"/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-1"/>
+                            <div class="col-3">
+                                <strong class="border">STORE MANAGER</strong>
+                            </div>
+                            <div class="col-1"/>
+                            <div class="col-3">
+                                <strong class="border">PURCHASE MANAGER</strong>
+                            </div>
+                            <div class="col-1"/>
+                            <div class="col-3">
+                                <strong class="border">FINANCE MANAGER</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

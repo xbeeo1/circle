@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_brand,product.brand,model_product_brand,base.group_user,1,1,1,1
+access_engine_number,engine.number,model_engine_number,base.group_user,1,1,1,1
+access_product_parts_history,product.parts.history,model_product_parts_history,base.group_user,1,1,1,1
+
+access_partner_sale_history,partner.sale.history,model_partner_sale_history,base.group_user,1,1,1,1
+access_total_sale_history,total.sale.history,model_total_sale_history,base.group_user,1,1,1,1
+access_purchase_product_parts_history,purchase.product.parts.history,model_purchase_product_parts_history,base.group_user,1,1,1,1
+access_sale_product_parts_history,sale.product.parts.history,model_sale_product_parts_history,base.group_user,1,1,1,1
+
+access_partner_purchase_history,partner.purchase.history,model_partner_purchase_history,base.group_user,1,1,1,1
+access_total_purchase_history,total.purchase.history,model_total_purchase_history,base.group_user,1,1,1,1
+
+
+access_employee_performance_tracking,employee.performance.tracking,model_employee_performance_tracking,base.group_user,1,1,1,1

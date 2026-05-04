@@ -1,0 +1,118 @@
+<odoo>
+    <template id="delivery_order_report_template">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.basic_layout">
+                <div class="container" style="font-family: 'Verdana';">
+                    <table style="width:100%; height: 1000px; border-collapse: collapse;border:1px solid black;" >
+                        <thead style="display: table-header-group;">
+                            <tr style="border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
+                                <td colspan="3" style="border:none; padding:0;">
+                                    <div class="text-center">
+                                        <h2 class="font-weight-bold">
+                                            Circle International Trading Company
+                                        </h2>
+                                        <h4 class="font-weight-bold">DAIRY &amp; AGRICULTURE MACHINERY &amp; PARTS</h4>
+                                        <h4 class="font-weight-bold">DELIVERY ORDER</h4>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" style="padding:0; border:none;">
+                                    <div class="row" style="border: 1px solid black;text-align: left; padding:5px;">
+                                        <div class="col-9">
+                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                                <t t-esc="o.partner_id.name"/>
+                                                <t t-esc="o.partner_id.phone"/>
+                                            </p>
+                                            <p class="mb-2 mt-2">
+                                                <t t-esc="o.partner_id.contact_address_complete"/>
+                                            </p>
+                                        </div>
+                                        <div class="col-3 p-1" style="text-align: left; border-left: 1px solid black;">
+                                            <p class="mb-2 mt-2">
+                                                <b>D/O #:</b>
+                                                <t t-esc="o.name"/>
+                                            </p>
+                                            <p class="mb-2">
+                                                <strong>DATE:-</strong>
+                                                <t t-esc="o.scheduled_date.strftime('%d/%m/%Y')"/>
+                                            </p>
+                                            <p class="mb-2">
+                                                <strong>Rep:-</strong>
+                                                <t t-esc="o.user_id.name"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- TABLE COLUMN HEADERS -->
+                            <tr>
+                                <th class="text-center" style="padding:5px;font-weight:bold;width:7%;border:1px solid black;">
+                                    Sr#
+                                </th>
+                                <th class="text-center" style="padding:5px;font-weight:bold;width:80%;border:1px solid black;">
+                                    PARTICULARS
+                                </th>
+                                <th class="text-center" style="padding:5px;font-weight:bold;width:13%;border:1px solid black;">
+                                    QNTY
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-set="sr" t-value="1"/>
+                            <t t-foreach="o.move_ids" t-as="line">
+                                <t t-if="line.product_id">
+                                    <tr style="height:15px;">
+                                        <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent;width:7%;">
+                                            <span t-esc="sr"/>
+                                        </td>
+                                        <td style="text-align: left;padding:5px;border-bottom: solid 1px transparent;width:80%;">
+
+                                            <t t-esc="line.product_id.default_code"/>
+
+                                            <t t-esc="line.product_id.name"/>
+
+                                            <t t-esc="line.product_id.product_brand_id.name"/>
+                                        </td>
+                                        <td class="mb-0"
+                                            style="text-align: right;padding:5px;border-bottom: solid 1px transparent;width:13%;">
+
+                                            <t t-esc="line.quantity"/>
+                                            <t t-esc="line.product_uom.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-set="sr" t-value="sr + 1"/>
+                            </t>
+                            <tr>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                                <td style="border-top:1px solid black; padding:0;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="row" style="page-break-inside: avoid;">
+                        <div class="col-4">
+                            <strong>STORE INCHARGE</strong>
+                        </div>
+                        <div class="col-1"/>
+                        <div class="col-3">
+                            <strong>ACCOUNTANT</strong>
+                        </div>
+
+                        <div class="col-1"/>
+                        <div class="col-3 text-end">
+                            <strong>Authorized Signature</strong>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
