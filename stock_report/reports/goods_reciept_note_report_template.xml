@@ -29,7 +29,31 @@
                                                 <t t-esc="o.partner_id.phone"/>
                                             </p>
                                             <p class="mb-2 mt-2">
-                                                <t t-esc="o.partner_id.contact_address_complete"/>
+                                                <t t-set="partner" t-value="o.partner_id"/>
+                                                <t t-if="partner.street">
+                                                    <span t-esc="partner.street"/>,
+                                                </t>
+
+                                                <t t-if="partner.street2">
+                                                    <span t-esc="partner.street2"/>,
+                                                </t>
+
+                                                <t t-if="partner.zip">
+                                                    <span t-esc="partner.zip"/>,
+                                                </t>
+
+                                                <t t-if="partner.city">
+                                                        <span t-esc="partner.city"/>,
+                                                </t>
+
+                                                <t t-if="partner.state_id">
+                                                    <span t-esc="partner.state_id.name"/>,
+                                                </t>
+
+                                                <t t-if="partner.country_id">
+                                                    <span t-esc="partner.country_id.name"/>
+                                                </t>
+<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
                                             </p>
                                         </div>
                                         <div class="col-3  p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
@@ -83,7 +107,7 @@
                                     </td>
                                     <td class="text-center mb-0"
                                         style="padding:5px;border-bottom: solid 1px transparent">
-                                        <t t-esc="line.product_uom.name"/>
+                                        <t t-esc="line.product_uom_id.name"/>
                                     </td>
                                     <td class="text-right mb-0"
                                         style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
