@@ -68,7 +68,7 @@ class PurchaseOrderInheritSl(models.Model):
                             'purchase_order_id': purchase_line.order_id.id,  # PURCHASE ORDER ID
                             'date_order': purchase_line.date_order,  # PURCHASE ORDER DATE
                             'currency_id': purchase_line.order_id.currency_id.id,  # PURCHASE ORDER CURRENCY
-                            'product_uom': purchase_line.product_uom.id,  # UNIT OF MEASURE ID
+                            'product_uom': purchase_line.product_uom_id.id,  # UNIT OF MEASURE ID
                             'product_uom_qty': purchase_line.product_uom_qty,  # QUANTITY
                             'price_unit': purchase_line.price_unit,  # UNIT PRICE
                             'taxes_id': [(4, tax.id) for tax in purchase_line.tax_ids],  # APPLIED TAXES
@@ -120,7 +120,7 @@ class PurchaseOrderInheritSl(models.Model):
                             'purchase_order_id': purchase_line.order_id.id,  # PURCHASE ORDER ID
                             'date_order': purchase_line.date_order,  # PURCHASE ORDER DATE
                             'currency_id': purchase_line.order_id.currency_id.id,  # PURCHASE ORDER CURRENCY
-                            'product_uom': purchase_line.product_uom.id,  # UNIT OF MEASURE ID
+                            'product_uom': purchase_line.product_uom_id.id,  # UNIT OF MEASURE ID
                             'product_uom_qty': purchase_line.product_uom_qty,  # QUANTITY
                             'price_unit': purchase_line.price_unit,  # UNIT PRICE
                             'taxes_id': [(4, tax.id) for tax in purchase_line.tax_ids],  # APPLIED TAXES

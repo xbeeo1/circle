@@ -68,7 +68,7 @@ class SaleOrderInheritSl(models.Model):
                             'name': sale_line.name,  # PRODUCT DESCRIPTION
                             'sale_order_id': sale_line.order_id.id,  # SALE ORDER ID
                             'date_order': sale_line.order_id.date_order,  # SALE ORDER DATE
-                            'product_uom': sale_line.product_uom.id,  # UNIT OF MEASURE ID
+                            'product_uom': sale_line.product_uom_id.id,  # UNIT OF MEASURE ID
                             'product_uom_qty': sale_line.product_uom_qty,  # QUANTITY
                             'price_unit': sale_line.price_unit,  # UNIT PRICE
                             'currency_id': sale_line.order_id.currency_id.id,  # SALE ORDER CURRENCY
@@ -132,7 +132,7 @@ class SaleOrderInheritSl(models.Model):
                             'name': sale_line.name,  # PRODUCT DESCRIPTION
                             'sale_order_id': sale_line.order_id.id,  # SALE ORDER ID
                             'date_order': sale_line.order_id.date_order,  # SALE ORDER DATE
-                            'product_uom': sale_line.product_uom.id,  # UNIT OF MEASURE ID
+                            'product_uom': sale_line.product_uom_id.id,  # UNIT OF MEASURE ID
                             'product_uom_qty': sale_line.product_uom_qty,  # QUANTITY
                             'price_unit': sale_line.price_unit,  # UNIT PRICE
                             'currency_id': sale_line.order_id.currency_id.id,  # SALE ORDER CURRENCY
