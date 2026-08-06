@@ -107,7 +107,7 @@
                                     </td>
                                     <td class="text-center mb-0"
                                         style="padding:5px;border-bottom: solid 1px transparent">
-                                        <t t-esc="line.product_uom_id.name"/>
+                                        <t t-esc="line.product_uom.name"/>
                                     </td>
                                     <td class="text-right mb-0"
                                         style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
