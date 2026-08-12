@@ -19,4 +19,4 @@ from . import account_move_lines
 from . import emp_perform_tracking
 from . import res_partner
 
-
+from . import account_payment

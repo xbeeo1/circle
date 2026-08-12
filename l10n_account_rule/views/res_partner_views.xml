@@ -11,6 +11,7 @@
             </xpath>
 
             <xpath expr="//field[@name='vat']" position="after">
+                <field name="cnic"/>
                 <field name="partner_strn"/>
             </xpath>
 

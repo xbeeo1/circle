@@ -28,6 +28,7 @@
         'views/res_partner_views.xml',
         'views/account_move_views.xml',
         'views/emp_perform_tracking_views.xml',
+        'views/account_payment_views.xml',
     ],
 
 }
