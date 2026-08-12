@@ -5,11 +5,12 @@
                 <div class="container" style="font-family: 'Verdana';">
 
                     <!-- Main Table with Repeating Header -->
-                    <table style="width:100%; height: 1000px; border-collapse: collapse;" >
+                    <table style="width:100%; height: 1000px; border-collapse: collapse;">
                         <thead>
                             <!-- Header (Repeats on every page) -->
                             <tr>
-                                <th colspan="10" style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
+                                <th colspan="10"
+                                    style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
                                     <div class="text-center" style="margin-bottom:10px;">
                                         <h2 class="font-weight-bold">Circle International Trading Company</h2>
                                         <h4 class="mb-0">HEAVY MACHINERY PARTS</h4>
@@ -20,11 +21,21 @@
 
                                     <div class="row p-0 container col-12">
                                         <div class="col-9 border p-1" style="text-align: left;">
-                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                            <p class="mb-1 mt-2" style="font-weight:bold;">
                                                 <strong>M/S:</strong>
                                                 <t t-esc="o.partner_id.name"/>
-                                                <t t-esc="o.partner_id.phone"/>
                                             </p>
+
+                                            <p class="mb-1">
+                                                <t t-esc="o.partner_id.cnic"/>
+                                                |
+                                                <t t-esc="o.partner_id.phone"/>
+                                                |
+                                                <t t-esc="o.partner_id.district"/>
+                                                |
+                                                <t t-esc="o.partner_id.city"/>
+                                            </p>
+
                                             <p class="mb-2 mt-2">
                                                 <t t-set="partner" t-value="o.partner_id"/>
                                                 <t t-if="partner.street">
@@ -40,7 +51,7 @@
                                                 </t>
 
                                                 <t t-if="partner.city">
-                                                        <span t-esc="partner.city"/>,
+                                                    <span t-esc="partner.city"/>,
                                                 </t>
 
                                                 <t t-if="partner.state_id">
@@ -50,10 +61,11 @@
                                                 <t t-if="partner.country_id">
                                                     <span t-esc="partner.country_id.name"/>
                                                 </t>
-<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
+                                                <!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
                                             </p>
                                         </div>
-                                        <div class="col-3 p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
+                                        <div class="col-3 p-1"
+                                             style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
                                             <p class="mb-2 mt-2">
                                                 <b>PO No:</b>
                                                 <t t-esc="o.name"/>
@@ -89,22 +101,47 @@
                             <t t-set="gst_amount" t-value="0"/>
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="height:25px;">
-                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent;" ><span t-esc="sr"/></td>
-                                    <td style="border-bottom: 1px solid transparent; padding:5px; width:40%;">
-                                        <div><t t-esc="line.product_id.default_code"/></div>
-                                        <div style="word-break: break-all;"><t t-esc="line.product_id.name"/></div>
-                                        <div><t t-esc="line.product_id.product_brand_id.name"/></div>
+                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent;">
+                                        <span t-esc="sr"/>
                                     </td>
-                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.product_uom_qty"/></td>
-                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.product_uom_id.name"/></td>
-                                    <td  style="text-align: right;padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.price_unit"/></td>
-                                    <td  style="text-align: right;padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.product_uom_qty * line.price_unit"/></td>
-                                    <td  style="text-align: right;padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.discount"/></td>
-                                    <td  style="text-align: right;padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.discount_amount"/></td>
-                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent"><t t-esc="line.gst_amount"/></td>
-                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent" ><t t-esc="line.price_subtotal + line.gst_amount"/></td>
+                                    <td style="border-bottom: 1px solid transparent; padding:5px; width:40%;">
+                                        <div>
+                                            <t t-esc="line.product_id.default_code"/>
+                                        </div>
+                                        <div style="word-break: break-all;">
+                                            <t t-esc="line.product_id.name"/>
+                                        </div>
+                                        <div>
+                                            <t t-esc="line.product_id.product_brand_id.name"/>
+                                        </div>
+                                    </td>
+                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.product_uom_qty"/>
+                                    </td>
+                                    <td class="text-center" style="padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.product_uom_id.name"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.price_unit"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.product_uom_qty * line.price_unit"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.discount"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.discount_amount"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.gst_amount"/>
+                                    </td>
+                                    <td style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.price_subtotal + line.gst_amount"/>
+                                    </td>
                                 </tr>
-                                <t t-set="total_amount" t-value="total_amount + (line.product_uom_qty * line.price_unit)"/>
+                                <t t-set="total_amount"
+                                   t-value="total_amount + (line.product_uom_qty * line.price_unit)"/>
                                 <t t-set="disc_amount" t-value="disc_amount + line.discount_amount"/>
                                 <t t-set="gst_amount" t-value="gst_amount + line.gst_amount"/>
                                 <t t-set="sr" t-value="sr + 1"/>
@@ -129,11 +166,19 @@
                                 <td style="height:25px;"></td>
                                 <td style="height:25px;"></td>
                                 <td style="height:25px;"></td>
-                                <td style="height:25px;text-align: right;padding:5px;"><t t-esc="'{:,.1f}'.format(total_amount)"/></td>
+                                <td style="height:25px;text-align: right;padding:5px;">
+                                    <t t-esc="'{:,.1f}'.format(total_amount)"/>
+                                </td>
                                 <td style="height:25px;"></td>
-                                <td style="height:25px;text-align: right; padding:5px;"><t t-esc="'{:,.1f}'.format(disc_amount)"/></td>
-                                <td style="height:25px;text-align: right; padding:5px;"><t t-esc="'{:,.1f}'.format(gst_amount)"/></td>
-                                <td style="height:25px;text-align: right; padding:5px;"><t t-esc="'{:,.1f}'.format(o.amount_total)"/></td>
+                                <td style="height:25px;text-align: right; padding:5px;">
+                                    <t t-esc="'{:,.1f}'.format(disc_amount)"/>
+                                </td>
+                                <td style="height:25px;text-align: right; padding:5px;">
+                                    <t t-esc="'{:,.1f}'.format(gst_amount)"/>
+                                </td>
+                                <td style="height:25px;text-align: right; padding:5px;">
+                                    <t t-esc="'{:,.1f}'.format(o.amount_total)"/>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -148,13 +193,19 @@
                         </table>
 
                         <!-- Signature Section -->
-                        <br/><br/><br/>
+                        <br/>
+                        <br/>
+                        <br/>
                         <div class="row" style="margin-top:30px;">
                             <div class="col-1"></div>
-                            <div class="col-3"><strong>Prepared By</strong></div>
+                            <div class="col-3">
+                                <strong>Prepared By</strong>
+                            </div>
                             <div class="col-3"></div>
                             <div class="col-2"></div>
-                            <div class="col-4 text-left"><strong>Authorized Signature</strong></div>
+                            <div class="col-4 text-left">
+                                <strong>Authorized Signature</strong>
+                            </div>
                         </div>
                     </div>
 

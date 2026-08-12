@@ -1,0 +1,217 @@
+<odoo>
+    <record id="paperformat_journal_voucher" model="report.paperformat">
+        <field name="name">Journal Voucher</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">26</field>
+        <field name="disable_shrinking" eval="True"/>
+    </record>
+
+    <record id="action_journal_voucher_report" model="ir.actions.report">
+        <field name="name">Journal Voucher</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_report.journal_voucher_template</field>
+        <field name="print_report_name">'Journal Voucher - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+<!--        <field name="domain">[('move_type', '=', 'entry')]</field>-->
+        <field name="paperformat_id" ref="paperformat_journal_voucher"/>
+    </record>
+
+    <template id="journal_voucher_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+
+                <t t-call="web.basic_layout">
+
+                    <!-- HEADER -->
+                    <div class="header" style="font-size:10px;">
+
+                        <div class="text-center">
+                            <h3 style="font-size:14px; margin:0;">
+                                <strong>Circle International Trading Company</strong>
+                            </h3>
+
+                            <h5 style="font-size:12px; margin:4px 0;">
+                                <span t-esc="o.company_id.name"/>
+                            </h5>
+
+                            <h5 style="font-size:12px; margin:4px 0 10px 0;">
+                                <strong>JOURNAL VOUCHER</strong>
+                            </h5>
+                        </div>
+
+                        <table style="width:100%; border:1px solid #000; border-collapse:collapse;">
+                            <tr>
+                                <td style="padding:4px; border:none;">
+                                    DATE:-
+                                    <span t-esc="o.date.strftime('%d/%m/%Y')"/>
+                                </td>
+
+                                <td style="padding:4px; border:none; text-align:center;">
+                                    VOUCHER NO:
+                                    <span t-esc="o.name"/>
+                                </td>
+
+                                <td style="padding:4px; border:none; text-align:right;">
+                                    PAGE
+                                    <span class="page"/>
+                                    OF
+                                    <span class="topage"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+                    <!-- BODY -->
+                    <div class="page" style="font-size:10px;">
+
+                        <style>
+                            .voucher-table,
+                            .voucher-table th,
+                            .voucher-table td {
+                                border: none;
+                                border-collapse: collapse;
+                            }
+
+                            .voucher-table th,
+                            .voucher-table td {
+                                padding: 4px 6px;
+                            }
+                        </style>
+
+                        <table class="voucher-table"
+                               style="width:100%; height:600px; border:1px solid #000;">
+
+                            <thead>
+                                <tr>
+                                    <th style="border-bottom:1px solid #000; border-right:1px solid #000;">
+                                        CODE
+                                    </th>
+
+                                    <th style="border-bottom:1px solid #000; border-right:1px solid #000;">
+                                        PARTICULARS
+                                    </th>
+
+                                    <th style="border-bottom:1px solid #000; border-right:1px solid #000;">
+                                        PARTNER
+                                    </th>
+
+                                    <th style="border-bottom:1px solid #000; border-right:1px solid #000;">
+                                        LABEL
+                                    </th>
+
+                                    <th class="text-end"
+                                        style="border-bottom:1px solid #000; border-right:1px solid #000;">
+                                        DEBIT
+                                    </th>
+
+                                    <th class="text-end"
+                                        style="border-bottom:1px solid #000;">
+                                        CREDIT
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr t-foreach="o.line_ids" t-as="line">
+
+                                    <td style="border-right:1px solid #000;">
+                                        <span t-esc="line.account_id.code"/>
+                                    </td>
+
+                                    <td style="border-right:1px solid #000;">
+                                        <span t-esc="line.account_id.name"/>
+                                    </td>
+
+                                    <td style="border-right:1px solid #000;">
+                                        <span t-esc="line.partner_id.name"/>
+                                    </td>
+
+                                    <td style="border-right:1px solid #000;">
+                                        <span t-if="line.name"
+                                              t-esc="line.name"/>
+                                    </td>
+
+                                    <td class="text-end"
+                                        style="border-right:1px solid #000;">
+                                        <span t-esc="line.debit"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+
+                                    <td class="text-end">
+                                        <span t-esc="line.credit"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4"
+                                        class="text-end"
+                                        style="border-top:1px solid #000; padding-right:8px;">
+                                        <strong>VOUCHER TOTAL:-</strong>
+                                    </td>
+
+                                    <td class="text-end"
+                                        style="border-top:1px solid #000; border-right:1px solid #000;">
+                                        <strong t-esc="sum(o.line_ids.mapped('debit'))"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+
+                                    <td class="text-end"
+                                        style="border-top:1px solid #000;">
+                                        <strong t-esc="sum(o.line_ids.mapped('credit'))"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+
+                                <tr style="height:100%;">
+                                    <td colspan="6"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <table class="table" style="margin-top:80px;">
+                            <tr>
+                                <td class="text-center"
+                                    style="border-top:1px solid #000;">
+                                    PREPARED BY
+                                </td>
+
+                                <td class="text-center"
+                                    style="border-top:1px solid #000;">
+                                    CHECKED BY
+                                </td>
+
+                                <td class="text-center"
+                                    style="border-top:1px solid #000;">
+                                    APPROVED BY
+                                </td>
+
+                                <td class="text-center"
+                                    style="border-top:1px solid #000;">
+                                    RECEIVER SIGNATURES
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

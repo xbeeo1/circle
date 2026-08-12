@@ -27,6 +27,8 @@
         'reports/credit_note_report_template.xml',
         'reports/custom_invoice_report_template.xml',
         'reports/custom_do_report_template.xml',
+        'reports/journal_voucher_report.xml',
+        'reports/payment_receipt_report.xml',
     ],
 
 }

@@ -3,11 +3,12 @@
         <t t-foreach="docs" t-as="o">
             <t t-call="web.basic_layout">
                 <div class="container" style="font-family: 'Verdana';">
-                    <table style="width:100%; height: 700px; border-collapse: collapse;" >
+                    <table style="width:100%; height: 700px; border-collapse: collapse;">
                         <thead>
                             <!-- Header (Repeats on every page) -->
                             <tr>
-                                <th colspan="10" style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
+                                <th colspan="10"
+                                    style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
                                     <div class="text-center">
                                         <h2 class="font-weight-bold">
                                             Circle Autos
@@ -19,10 +20,20 @@
                                     </div>
                                     <div class="row  p-0 container ">
                                         <div class="col-9 border p-1" style="text-align: left;">
-                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                            <p class="mb-1 mt-2" style="font-weight:bold;">
                                                 <t t-esc="o.partner_id.name"/>
-                                                <t t-esc="o.partner_id.phone"/>
                                             </p>
+
+                                            <p class="mb-1">
+                                                <t t-esc="o.partner_id.cnic"/>
+                                                |
+                                                <t t-esc="o.partner_id.phone"/>
+                                                |
+                                                <t t-esc="o.partner_id.district"/>
+                                                |
+                                                <t t-esc="o.partner_id.city"/>
+                                            </p>
+
                                             <p class="mb-2 mt-2">
                                                 <t t-set="partner" t-value="o.partner_id"/>
                                                 <t t-if="partner.street">
@@ -38,7 +49,7 @@
                                                 </t>
 
                                                 <t t-if="partner.city">
-                                                        <span t-esc="partner.city"/>,
+                                                    <span t-esc="partner.city"/>,
                                                 </t>
 
                                                 <t t-if="partner.state_id">
@@ -48,25 +59,35 @@
                                                 <t t-if="partner.country_id">
                                                     <span t-esc="partner.country_id.name"/>
                                                 </t>
-<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
+                                                <!-- <t t-esc="o.partner_id.contact_address_complete"/> -->
                                             </p>
+
+
                                         </div>
-                                        <div class="col-3  p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
+                                        <div class="col-3  p-1"
+                                             style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
                                             <p class="mb-2 mt-2">
                                                 <b>NO:-</b>
                                                 <t t-esc="o.invoice_number"/>
                                             </p>
                                             <p class="mb-2">
                                                 <strong>DATE:-</strong>
-                                                <t t-esc="o.invoice_date.strftime('%d/%m/%Y')"/>
+                                                <t t-if="o.invoice_date">
+                                                    <t t-esc="o.invoice_date.strftime('%d/%m/%Y')"/>
+                                                </t>
+                                            </p>
+                                            <p class="mb-2 mt-2">
+                                                <strong>Salesperson:</strong>
+                                                <t t-esc="o.user_id.name"/>
                                             </p>
                                         </div>
                                     </div>
                                 </th>
                             </tr>
-                             <tr>
+                            <tr>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">Sr#</th>
-                                <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">PARTICULARS</th>
+                                <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">PARTICULARS
+                                </th>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">QTY</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold; ">Rate</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold; ">Amount</th>
@@ -95,11 +116,11 @@
                                             <t t-esc="line.quantity"/>
                                         </td>
                                         <td
-                                            style="text-align: right;padding:5px;border-bottom: solid 1px transparent;">
+                                                style="text-align: right;padding:5px;border-bottom: solid 1px transparent;">
                                             <t t-esc="line.price_unit"/>
                                         </td>
                                         <td
-                                            style="text-align: right;padding:5px;border-bottom: solid 1px transparent;">
+                                                style="text-align: right;padding:5px;border-bottom: solid 1px transparent;">
                                             <t t-esc="line.quantity*line.price_unit"/>
                                         </td>
                                     </tr>
@@ -153,25 +174,25 @@
                         <div class="text-center" style="margin-right: 15px; width: 12%;">
                             <div class="category-label mb-1" style="font-weight: bold;">31-60</div>
                             <div class="category-box border p-1" style="height: 30px;">
-                           <t t-esc="o.amount_31_60"/>
+                                <t t-esc="o.amount_31_60"/>
                             </div>
                         </div>
                         <div class="text-center" style="margin-right: 15px; width: 12%;">
                             <div class="category-label mb-1" style="font-weight: bold;">61-90</div>
                             <div class="category-box border p-1" style="height: 30px;">
-                                 <t t-esc="o.amount_61_90"/>
+                                <t t-esc="o.amount_61_90"/>
                             </div>
                         </div>
                         <div class="text-center" style="margin-right: 15px; width: 12%;">
                             <div class="category-label mb-1" style="font-weight: bold;">90-120</div>
                             <div class="category-box border p-1" style="height: 30px;">
-                              <t t-esc="o.amount_90_120"/>
+                                <t t-esc="o.amount_90_120"/>
                             </div>
                         </div>
                         <div class="text-center" style="width: 12%;">
                             <div class="category-label mb-1" style="font-weight: bold;">120+</div>
                             <div class="category-box border p-1" style="height: 30px;">
-                                 <t t-esc="o.amount_120_plus"/>
+                                <t t-esc="o.amount_120_plus"/>
                             </div>
                         </div>
                     </div>

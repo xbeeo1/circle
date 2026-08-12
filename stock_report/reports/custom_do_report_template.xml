@@ -3,7 +3,7 @@
         <t t-foreach="docs" t-as="o">
             <t t-call="web.basic_layout">
                 <div class="container" style="font-family: 'Verdana';">
-                    <table style="width:100%; height: 1000px; border-collapse: collapse;border:1px solid black;" >
+                    <table style="width:100%; height: 1000px; border-collapse: collapse;border:1px solid black;">
                         <thead style="display: table-header-group;">
                             <tr style="border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
                                 <td colspan="3" style="border:none; padding:0;">
@@ -21,10 +21,20 @@
                                 <td colspan="3" style="padding:0; border:none;">
                                     <div class="row" style="border: 1px solid black;text-align: left; padding:5px;">
                                         <div class="col-9">
-                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                            <p class="mb-1 mt-2" style="font-weight:bold;">
                                                 <t t-esc="o.partner_id.name"/>
-                                                <t t-esc="o.partner_id.phone"/>
                                             </p>
+
+                                            <p class="mb-1">
+                                                <t t-esc="o.partner_id.cnic"/>
+                                                |
+                                                <t t-esc="o.partner_id.phone"/>
+                                                |
+                                                <t t-esc="o.partner_id.district"/>
+                                                |
+                                                <t t-esc="o.partner_id.city"/>
+                                            </p>
+
                                             <p class="mb-2 mt-2">
                                                 <t t-set="partner" t-value="o.partner_id"/>
                                                 <t t-if="partner.street">
@@ -40,7 +50,7 @@
                                                 </t>
 
                                                 <t t-if="partner.city">
-                                                        <span t-esc="partner.city"/>,
+                                                    <span t-esc="partner.city"/>,
                                                 </t>
 
                                                 <t t-if="partner.state_id">
@@ -50,7 +60,7 @@
                                                 <t t-if="partner.country_id">
                                                     <span t-esc="partner.country_id.name"/>
                                                 </t>
-<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
+                                                <!-- <t t-esc="o.partner_id.contact_address_complete"/> -->
                                             </p>
                                         </div>
                                         <div class="col-3 p-1" style="text-align: left; border-left: 1px solid black;">
@@ -73,13 +83,16 @@
 
                             <!-- TABLE COLUMN HEADERS -->
                             <tr>
-                                <th class="text-center" style="padding:5px;font-weight:bold;width:7%;border:1px solid black;">
+                                <th class="text-center"
+                                    style="padding:5px;font-weight:bold;width:7%;border:1px solid black;">
                                     Sr#
                                 </th>
-                                <th class="text-center" style="padding:5px;font-weight:bold;width:80%;border:1px solid black;">
+                                <th class="text-center"
+                                    style="padding:5px;font-weight:bold;width:80%;border:1px solid black;">
                                     PARTICULARS
                                 </th>
-                                <th class="text-center" style="padding:5px;font-weight:bold;width:13%;border:1px solid black;">
+                                <th class="text-center"
+                                    style="padding:5px;font-weight:bold;width:13%;border:1px solid black;">
                                     QNTY
                                 </th>
                             </tr>
@@ -105,7 +118,7 @@
                                             style="text-align: right;padding:5px;border-bottom: solid 1px transparent;width:13%;">
 
                                             <t t-esc="line.quantity"/>
-                                            <t t-esc="line.product_uom_id.name"/>
+                                            <t t-esc="line.product_uom.name"/>
                                         </td>
                                     </tr>
                                 </t>

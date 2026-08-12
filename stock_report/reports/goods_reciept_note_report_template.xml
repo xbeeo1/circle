@@ -3,11 +3,12 @@
         <t t-foreach="docs" t-as="o">
             <t t-call="web.basic_layout">
                 <div class="container" style="font-family: 'Verdana';">
-                    <table style="width:100%; height: 1000px; border-collapse: collapse;" >
+                    <table style="width:100%; height: 1000px; border-collapse: collapse;">
                         <thead>
                             <!-- Header (Repeats on every page) -->
                             <tr>
-                                <th colspan="10" style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
+                                <th colspan="10"
+                                    style="padding:0;border-left: solid 1px transparent;border-top: solid 1px transparent;border-right: solid 1px transparent;">
                                     <div class="text-center">
                                         <h2 class="font-weight-bold" style="margin-bottom:10px;">
                                             Circle International Trading Company
@@ -24,10 +25,20 @@
                                     </div>
                                     <div class="row  p-0 container ">
                                         <div class="col-9 border p-1" style="text-align: left;">
-                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                            <p class="mb-1 mt-2" style="font-weight:bold;">
                                                 <t t-esc="o.partner_id.name"/>
-                                                <t t-esc="o.partner_id.phone"/>
                                             </p>
+
+                                            <p class="mb-1">
+                                                <t t-esc="o.partner_id.cnic"/>
+                                                |
+                                                <t t-esc="o.partner_id.phone"/>
+                                                |
+                                                <t t-esc="o.partner_id.district"/>
+                                                |
+                                                <t t-esc="o.partner_id.city"/>
+                                            </p>
+
                                             <p class="mb-2 mt-2">
                                                 <t t-set="partner" t-value="o.partner_id"/>
                                                 <t t-if="partner.street">
@@ -43,7 +54,7 @@
                                                 </t>
 
                                                 <t t-if="partner.city">
-                                                        <span t-esc="partner.city"/>,
+                                                    <span t-esc="partner.city"/>,
                                                 </t>
 
                                                 <t t-if="partner.state_id">
@@ -53,10 +64,11 @@
                                                 <t t-if="partner.country_id">
                                                     <span t-esc="partner.country_id.name"/>
                                                 </t>
-<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
+                                                <!-- <t t-esc="o.partner_id.contact_address_complete"/> -->
                                             </p>
                                         </div>
-                                        <div class="col-3  p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
+                                        <div class="col-3  p-1"
+                                             style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
                                             <p class="mb-2 mt-2">
                                                 <b>GRIN#</b>
                                                 <t t-esc="o.name"/>
@@ -72,7 +84,9 @@
                             </tr>
                             <tr>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">Sr#</th>
-                                <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">DESCRIPTION OF GOODS</th>
+                                <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">DESCRIPTION OF
+                                    GOODS
+                                </th>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">QNTY</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">UNIT</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold; ">RATE</th>
@@ -92,13 +106,19 @@
                             <t t-foreach="o.move_ids" t-as="line">
                                 <tr style="height:15px;">
                                     <td class="text-center"
-                                       style="padding:5px;border-bottom: solid 1px transparent;">
+                                        style="padding:5px;border-bottom: solid 1px transparent;">
                                         <span t-esc="sr"/>
                                     </td>
                                     <td style="border-bottom: 1px solid transparent; padding:5px; width:40%;">
-                                        <div><t t-esc="line.product_id.default_code"/></div>
-                                        <div style="word-break: break-all;"><t t-esc="line.product_id.name"/></div>
-                                        <div><t t-esc="line.product_id.product_brand_id.name"/></div>
+                                        <div>
+                                            <t t-esc="line.product_id.default_code"/>
+                                        </div>
+                                        <div style="word-break: break-all;">
+                                            <t t-esc="line.product_id.name"/>
+                                        </div>
+                                        <div>
+                                            <t t-esc="line.product_id.product_brand_id.name"/>
+                                        </div>
                                     </td>
                                     <td class="text-center mb-0"
                                         style="padding:5px;border-bottom: solid 1px transparent">
@@ -119,17 +139,20 @@
                                     </td>
                                     <td class="text-right mb-0"
                                         style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
-                                        <t t-set="discount_amt" t-value="line.quantity*(line.purchase_line_id.discount_amount/line.purchase_line_id.product_uom_qty)"/>
+                                        <t t-set="discount_amt"
+                                           t-value="line.quantity * (line.purchase_line_id.discount_amount / line.purchase_line_id.product_uom_qty) if line.purchase_line_id.product_uom_qty else 0"/>
                                         <t t-esc="discount_amt"/>
                                     </td>
                                     <td class="text-right mb-0"
                                         style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
-                                        <t t-set="gst_amt" t-value="line.quantity*(line.purchase_line_id.gst_amount/line.purchase_line_id.product_uom_qty)"/>
+                                        <t t-set="gst_amt"
+                                           t-value="line.quantity * (line.purchase_line_id.gst_amount / line.purchase_line_id.product_uom_qty) if line.purchase_line_id.product_uom_qty else 0"/>
                                         <t t-esc="gst_amt"/>
                                     </td>
                                     <td class="text-right mb-0"
                                         style="text-align: right;padding:5px;border-bottom: solid 1px transparent">
-                                        <t t-set="net_amt" t-value="((line.quantity * line.price_unit)-discount_amt)+gst_amt"/>
+                                        <t t-set="net_amt"
+                                           t-value="((line.quantity * line.price_unit)-discount_amt)+gst_amt"/>
                                         <t t-esc="net_amt"/>
                                     </td>
 

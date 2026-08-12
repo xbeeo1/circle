@@ -7,7 +7,8 @@
                         <thead>
                             <!-- Header -->
                             <tr>
-                                <th colspan="10" style="padding:0;border-left:1px solid transparent;border-top:1px solid transparent;border-right:1px solid transparent;">
+                                <th colspan="10"
+                                    style="padding:0;border-left:1px solid transparent;border-top:1px solid transparent;border-right:1px solid transparent;">
                                     <div class="text-center">
                                         <h2 class="font-weight-bold">
                                             Circle International Trading Company
@@ -21,11 +22,21 @@
                                     </div>
                                     <div class="row  p-0 container col-12">
                                         <div class="col-9 border p-1" style="text-align: left;">
-                                            <p class="mb-2 mt-2" style="font-weight:bold;">
+                                            <p class="mb-1 mt-2" style="font-weight:bold;">
                                                 <strong>M/S:</strong>
                                                 <t t-esc="o.partner_id.name"/>
-                                                <t t-esc="o.partner_id.phone"/>
                                             </p>
+
+                                            <p class="mb-1">
+                                                <t t-esc="o.partner_id.cnic"/>
+                                                |
+                                                <t t-esc="o.partner_id.phone"/>
+                                                |
+                                                <t t-esc="o.partner_id.district"/>
+                                                |
+                                                <t t-esc="o.partner_id.city"/>
+                                            </p>
+
                                             <p class="mb-2 mt-2">
                                                 <t t-set="partner" t-value="o.partner_id"/>
                                                 <t t-if="partner.street">
@@ -41,7 +52,7 @@
                                                 </t>
 
                                                 <t t-if="partner.city">
-                                                        <span t-esc="partner.city"/>,
+                                                    <span t-esc="partner.city"/>,
                                                 </t>
 
                                                 <t t-if="partner.state_id">
@@ -51,10 +62,13 @@
                                                 <t t-if="partner.country_id">
                                                     <span t-esc="partner.country_id.name"/>
                                                 </t>
-<!--                                                <t t-esc="o.partner_id.contact_address_complete"/>-->
+                                                <!-- <t t-esc="o.partner_id.contact_address_complete"/>-->
                                             </p>
+
+
                                         </div>
-                                        <div class="col-3  p-1" style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
+                                        <div class="col-3  p-1"
+                                             style="border: 1px solid black; border-style: solid solid solid none;text-align: left;">
                                             <p class="mb-2 mt-2">
                                                 <b>Qtn#:</b>
                                                 <t t-esc="o.name"/>
@@ -66,6 +80,10 @@
                                             <p class="mb-2">
                                                 <strong>Expiry:</strong>
                                                 <t t-esc="o.validity_date.strftime('%d/%m/%Y')"/>
+                                            </p>
+                                            <p class="mb-2 mt-2">
+                                                <strong>Salesperson:</strong>
+                                                <t t-esc="o.user_id.name"/>
                                             </p>
                                         </div>
                                     </div>
@@ -101,8 +119,9 @@
                                     <td class="text-center mb-0"
                                         style="padding:5px;border-bottom:1px solid transparent;">
                                         <t t-esc="line.product_id.qty_available "/>
-                                    </td><td class="text-center mb-0"
-                                       style="padding:5px;border-bottom:1px solid transparent;">
+                                    </td>
+                                    <td class="text-center mb-0"
+                                        style="padding:5px;border-bottom:1px solid transparent;">
                                         <t t-esc="line.product_uom_qty"/>
                                         <t t-set="total_qty" t-value="total_qty + line.product_uom_qty"/>
                                     </td>
@@ -120,7 +139,8 @@
                                     </td>
                                 </tr>
                                 <t t-set="sr" t-value="sr + 1"/>
-                                <t t-set="total_amount" t-value="total_amount + (line.product_uom_qty * line.price_unit)"/>
+                                <t t-set="total_amount"
+                                   t-value="total_amount + (line.product_uom_qty * line.price_unit)"/>
                             </t>
                             <tr>
                                 <td style="border-top:1px solid black; padding:0;"></td>
@@ -151,13 +171,19 @@
                         </div>
 
                         <!-- Signatures -->
-                        <br/><br/><br/>
+                        <br/>
+                        <br/>
+                        <br/>
                         <div class="row" style="margin-top:30px;">
                             <div class="col-1"></div>
-                            <div class="col-3"><strong>Prepared By</strong></div>
+                            <div class="col-3">
+                                <strong>Prepared By</strong>
+                            </div>
                             <div class="col-3"></div>
                             <div class="col-2"></div>
-                            <div class="col-4 text-left"><strong>Authorized Signature</strong></div>
+                            <div class="col-4 text-left">
+                                <strong>Authorized Signature</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
