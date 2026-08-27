@@ -84,6 +84,7 @@
                                 <th class="text-center" style="padding:5px;width:40%; font-weight:bold;">DESCRIPTION OF
                                     GOODS
                                 </th>
+                                <th class="text-center" style="padding:5px;font-weight:bold;">Brand</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">QNTY</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold;">UNIT</th>
                                 <th class="text-center" style="padding:5px;font-weight:bold; ">RATE</th>
@@ -135,6 +136,10 @@
                                         <div>
                                             <t t-esc="line.product_id.product_brand_id.name"/>
                                         </div>
+                                    </td>
+                                    <td class="text-center mb-0"
+                                        style="padding:5px;border-bottom: solid 1px transparent">
+                                        <t t-esc="line.product_id.product_brand_id.name"/>
                                     </td>
                                     <td class="text-center mb-0"
                                         style="padding:5px;border-bottom: solid 1px transparent">
@@ -202,6 +207,7 @@
                                     style="width:45%;padding-right: 20px; font-weight: bold;">
                                     Total:-
                                 </td>
+                                <td class="text-right border"/>
                                 <td class="text-right border"/>
                                 <td class="text-right border"/>
                                 <td class="text-right border"/>
